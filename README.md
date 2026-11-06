@@ -65,8 +65,8 @@ Copy the files into your project root, keeping this layout:
 ```
 trongate                 entry script (run it with: php trongate ...)
 cli/
-commands/              Cli.php, Create.php, Serve.php, Info.php, Logo.php
-Support/               Console.php, FileGenerator.php, System.php
+  commands/              Cli.php, Create.php, Serve.php, Info.php, Logo.php
+  Support/               Console.php, FileGenerator.php, System.php
 ```
 On Linux and macOS you can also chmod +x trongate and run ./trongate.
 
