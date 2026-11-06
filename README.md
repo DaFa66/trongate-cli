@@ -52,20 +52,27 @@ php trongate create:crud members --dry-run
 ---
 
 ## Requirements
-
-- PHP 8.1+
-- MySQL / MariaDB
-- A Trongate v2 project
+```
+PHP 8.0 or newer (CLI)
+A Trongate v2 project (config/, engine/, modules/, public/)
+ENV set to 'dev' in config/config.php. The CLI refuses to run in any other environment.
+For create:crud: MySQL or MariaDB, and the pdo_mysql extension
+```
 
 ## Installation
 
-Copy the `cli/` folder into your Trongate project, then run:
-
-```bash
-php trongate
+Copy the files into your project root, keeping this layout:
 ```
+trongate                 entry script (run it with: php trongate ...)
+cli/
+commands/              Cli.php, Create.php, Serve.php, Info.php, Logo.php
+Support/               Console.php, FileGenerator.php, System.php
+```
+On Linux and macOS you can also chmod +x trongate and run ./trongate.
 
-## Documentation
+
+
+## Trongate Project Documentation
 
 - [Trongate PHP Framework](https://trongateframework.com/)
 - [The Complete Trongate Reference Guide](https://trongateframework.com/documentation)
