@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+
+if (PHP_VERSION_ID < 80000) {
+    fwrite(STDERR, "Trongate v2 requires PHP 8.0 or newer (running " . PHP_VERSION . ").\n");
+    exit(1);
+}
+
+require_once __DIR__ . '/config/config.php';
+
+if (!defined('ENV')) {
+    fwrite(STDERR, "Configuration error: ENV is not defined.\n");
+    exit(1);
+}
+
+if (ENV !== 'dev') {
+    fwrite(STDERR, "Trongate CLI is disabled outside the Development environment.\n");
+    exit(1);
+}
+
+require_once __DIR__ . '/cli/commands/Cli.php';
+
+try {
+    exit(Cli::run($argv ?? []));
+} catch (Throwable $e) {
+    fwrite(STDERR, "Error: " . $e->getMessage() . "\n");
+    if (getenv('CLI_DEBUG')) {
+        fwrite(STDERR, $e->getTraceAsString() . "\n");
+    }
+    exit(1);
+}
