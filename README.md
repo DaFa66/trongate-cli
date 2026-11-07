@@ -1,6 +1,6 @@
 # Trongate CLI
 
-A lightweight command-line toolkit for [Trongate](https://trongateframework.com/) PHP projects. Scaffold modules, generate CRUD from your database schema, explore a guided learning path, and run a tuned development server — all from your terminal.
+A lightweight command-line toolkit for [Trongateframework](https://trongateframework.com/) PHP projects. Scaffold modules, generate CRUD from your database schema, explore a guided learning path, and run a tuned development server — all from your terminal.
 
 ## Commands
 
