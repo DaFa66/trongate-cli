@@ -32,11 +32,6 @@ final class Cli
                 (new Serve())->handle($arguments); // exits with the server's code
                 return 0;
 
-            // "php trongate create module blog" and "php trongate make module blog"
-            case 'create:':
-            case 'make:':
-                return (new Create())->handle($arguments);
-
             case 'info':
                 Logo::render();
                 Info::run();
@@ -65,9 +60,18 @@ final class Cli
                 return 0;
         }
 
-        // "php trongate create:module blog"
-        if (strpos($command, 'create:') === 0) {
-            $generator = substr($command, strlen('create:'));
+        // "php trongate create module blog" / "php trongate make module blog"
+        if (in_array($command, ['create', 'make'], true) && $arguments !== []) {
+            $generator = array_shift($arguments);
+
+            return (new Create())->handle(
+                array_merge([$generator], $arguments)
+            );
+        }
+
+        // "php trongate create:module blog" / "php trongate make:module blog"
+        if (strpos($command, 'create:') === 0 || strpos($command, 'make:') === 0) {
+            $generator = substr($command, strpos($command, ':') + 1);
 
             return (new Create())->handle(
                 array_merge([$generator], $arguments)
@@ -96,7 +100,7 @@ Development:
   info                        Display project information
   version                     Show the CLI version
 
-Generators (create <generator> ... or create:<generator> ...):
+Generators (create <generator> ... or create:<generator> ...; make is an alias):
   create:module <module>              Module controller + views/index
   create:controller <module> <child>  Child module (modules/<module>/<child>/)
   create:model <module> [<child>]     Model for a module or child module
